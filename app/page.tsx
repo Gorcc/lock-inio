@@ -1,9 +1,9 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import LeftMenu from '@/components/LeftMenu';
 import StudyTimer from '@/components/StudyTimer';
-import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [tasks, setTasks] = useState<Array<{id: number, text: string, completed: boolean, timestamp: Date}>>([]);
@@ -53,10 +53,6 @@ export default function Home() {
     ));
   };
 
-  const deleteTask = (id: number) => {
-    setTasks(tasks.filter(task => task.id !== id));
-  };
-
   return (
     <div className="flex h-screen flex-col">
       <Header />
@@ -99,7 +95,7 @@ export default function Home() {
                       key={task.id} 
                       className="flex items-center justify-between p-3 border border-gray-100 rounded-lg hover:bg-gray-50"
                     >
-                      <div className="flex items-center flex-1">
+                      <div className="flex items-center">
                         <input
                           type="checkbox"
                           checked={task.completed}
@@ -110,18 +106,9 @@ export default function Home() {
                           {task.text}
                         </span>
                       </div>
-                      <div className="flex items-center">
-                        <span className="text-xs text-gray-400 mr-3">
-                          {task.timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
-                        </span>
-                        <button 
-                          onClick={() => deleteTask(task.id)}
-                          className="text-gray-400 hover:text-red-500 transition-colors"
-                          aria-label="Delete task"
-                        >
-                          🗑️
-                        </button>
-                      </div>
+                      <span className="text-xs text-gray-400">
+                        {task.timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                      </span>
                     </li>
                   ))}
                 </ul>

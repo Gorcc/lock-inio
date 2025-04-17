@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function LeftMenu() {
@@ -60,5 +61,4 @@ export default function LeftMenu() {
         </div>
       </div>
     </div>
-  );
-}
+)}
