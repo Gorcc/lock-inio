@@ -1,8 +1,10 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { createClient } from '@/utils/supabase/client';
-import { useEffect, useState } from 'react';
+import Link from "next/link";
+import { createClient } from "@/utils/supabase/client";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Logo from "@/images/logo.svg";
 
 export default function Header() {
   const [user, setUser] = useState<any>(null);
@@ -10,12 +12,14 @@ export default function Header() {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       setUser(user);
     };
-    
+
     getUser();
-    
+
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setUser(session?.user ?? null);
@@ -32,17 +36,19 @@ export default function Header() {
       <header className="w-full bg-white shadow-sm py-3 px-6 flex justify-between items-center sticky top-0 z-10">
         <div className="flex items-center">
           <Link href="/" className="flex items-center">
-            <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-2 rounded-lg mr-2">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-              </svg>
-            </div>
+            <Image
+              src={Logo}
+              alt="Lock In.io Logo"
+              width={50}
+              height={50}
+              className="mr-2"
+            />
             <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-green-800">
-              Lock In.io
+              LockIn.io
             </h1>
           </Link>
         </div>
-        
+
         <div className="flex items-center space-x-4">
           {user ? (
             <div className="flex items-center space-x-4">
@@ -52,7 +58,7 @@ export default function Header() {
                 </div>
                 <span className="text-gray-700 text-sm">{user.email}</span>
               </div>
-              <button 
+              <button
                 onClick={async () => {
                   await supabase.auth.signOut();
                 }}
@@ -62,8 +68,8 @@ export default function Header() {
               </button>
             </div>
           ) : (
-            <Link 
-              href="/login" 
+            <Link
+              href="/login"
               className="text-sm bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors"
             >
               Sign in
@@ -71,13 +77,18 @@ export default function Header() {
           )}
         </div>
       </header>
-      
+
       {!user && (
         <div className="w-full bg-gradient-to-r from-green-50 to-green-100 border-b border-green-200 py-2 px-6 text-center">
           <p className="text-sm text-green-800">
-            <span className="font-medium">🔥 Sign in to track your study streaks and earn achievement points!</span>
-            {" "}
-            <Link href="/login" className="underline font-semibold hover:text-green-700">
+            <span className="font-medium">
+              🔥 Sign in to track your study streaks and earn achievement
+              points!
+            </span>{" "}
+            <Link
+              href="/login"
+              className="underline font-semibold hover:text-green-700"
+            >
               Get started now
             </Link>
           </p>
