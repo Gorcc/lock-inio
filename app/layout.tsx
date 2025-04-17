@@ -16,7 +16,7 @@ const defaultUrl = process.env.VERCEL_URL
 // Fixed: Removed duplicate metadata declaration and merged the properties
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "StudySync - Social Study App",
+  title: "LockIn.io - Pomodoro Timer - Social Study App",
   description: "A social app focused on studying with timer functionality",
 };
 
